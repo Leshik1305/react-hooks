@@ -9,12 +9,22 @@ function TaskOne() {
      * password - должен быть не меньше 5 символов и должен включать в себя цифры и сепц символы (%$@ и т.д.)
      * confirmPassword - должен совпадать с password
      * */
+    function useForm() {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
+
+
+    function isValidEmail(email) {
+        return /^([A-Za-z0-9]+)@([A-Za-z0-9]+)\.([A-Za-z0-9]{2,})$/.test(email);
+      }
+
+    function isValidPassword(password) {
+        return /[0-9#?!@$%^&*-]/g.test(password) && password.length >=5
+    }
 
     // Ваш хук должен возвращать фукцию которую будет использовать форма для сабмита данных
     const onSubmitHandle = (event) => {
@@ -27,6 +37,41 @@ function TaskOne() {
             password,
             confirmPassword,
         } = event;
+
+        const isValidateFirstName = (firstName) => {
+            if (!firstName) {
+                setError('Firstname is invalid')
+            }
+        }
+
+        const isValidateLastName = (lastName) => {
+            if (!lastName) {
+                setError('Lastname is invalid')
+            }
+        }
+
+        if (isValidEmail(email)) {
+            console.log('The email is valid');
+          } else {
+            setError('Email is invalid');
+          }
+        };
+
+        if (isValidPassword(password)) {
+            console.log('The password is valid'); 
+        } else {
+            setError('Password is invalid');
+          }
+        
+
+        const isValidateconfirmPassword = (confirmPassword) => {
+            if (confirmPassword != password){
+                setError('ConfirmPassword is invalid')
+            }
+        }
+
+
+        
 
         // Здесь вы можете обрабатывать логику отправки формы,
         // например, вызвать ваш API для отправки данных формы
