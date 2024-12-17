@@ -38,36 +38,33 @@ function TaskOne() {
             confirmPassword,
         } = event;
 
-        const isValidateFirstName = (firstName) => {
-            if (!firstName) {
-                setError('Firstname is invalid')
-            }
+        
+        if (!firstName) {
+            setError('Firstname is invalid');
+            return
         }
-
-        const isValidateLastName = (lastName) => {
-            if (!lastName) {
-                setError('Lastname is invalid')
-            }
-        }
-
-        if (isValidEmail(email)) {
-            console.log('The email is valid');
-          } else {
-            setError('Email is invalid');
-          }
-        };
-
-        if (isValidPassword(password)) {
-            console.log('The password is valid'); 
-        } else {
-            setError('Password is invalid');
-          }
         
 
-        const isValidateconfirmPassword = (confirmPassword) => {
-            if (confirmPassword != password){
-                setError('ConfirmPassword is invalid')
-            }
+        if (!lastName) {
+            setError('Lastname is invalid');
+            return
+        }
+        
+
+        if (!isValidEmail(email)) {
+            setError('Email is invalid');
+            return;
+        }
+
+        if (!isValidPassword(password)) {
+            setError('Password is invalid');
+            return;
+        }
+        
+
+        if (confirmPassword !== password) {
+            setError('Passwords do not match');
+            return;
         }
 
 
@@ -91,9 +88,10 @@ function TaskOne() {
             password,
             confirmPassword,}));
     };
+    
 
     // TODO: реализуйте пользовательский хук для валидации
-    // const submitForm = useSubmitForm(onSubmitHandle);
+    const submitForm = useSubmitForm(onSubmitHandle);
 
     // Замени сеттеры из стейта на callback-и из твоего хука
     return (
@@ -114,6 +112,6 @@ function TaskOne() {
             </form>
         </div>
     );
-}
+}}
 
 export default TaskOne;
