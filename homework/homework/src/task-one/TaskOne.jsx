@@ -97,7 +97,7 @@ function TaskOne() {
     return (
         <div className="form-container">
             <div className="error-message">{error}</div>
-            <form onSubmit={onSubmitHandle}> {/* Измените здесь на submitForm, когда он будет готов */}
+            <form onSubmit={submitForm}> {/* Измените здесь на submitForm, когда он будет готов */}
                 <input type="text" name="firstName" placeholder="First Name" className="form-input"
                        onChange={(e) => setFirstName(e.target.value)} value={firstName}/>
                 <input type="text" name="lastName" placeholder="Last Name" className="form-input"
