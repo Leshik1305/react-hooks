@@ -52,3 +52,8 @@
 .TaskThree ul li:hover {
     box-shadow: .2rem .2rem .5rem rgba(0,0,0,.3);
 }
+
+.loading {
+    text-align: center;
+    font-size: 2rem;
+}
