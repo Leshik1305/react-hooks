@@ -3,8 +3,6 @@ import './TaskThree.css';
 
 // функция для получения данных с Mock API
 
-
-
 export default function TaskThree() {
     const [posts, setPosts] = useState([]);
     const [search, setSearch] = useState();
@@ -35,9 +33,6 @@ export default function TaskThree() {
     }, [search, fetchData]);
 
     
-
-
-
     return (
         <div className="TaskThree">
             <input type="text" 
