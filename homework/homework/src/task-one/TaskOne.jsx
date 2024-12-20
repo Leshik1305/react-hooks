@@ -1,15 +1,8 @@
 import React, {useState} from 'react';
 import './TaskOne.css';
 
-function TaskOne() {
-    /**
-     * Вынесите эти стейты в свой хук, все изменения полей должны валидирвоаться по разным правилам:
-     * firstName, lastName - не могут быть пустыми
-     * email - должен совпадать с паттерном email, оп которому стандартный email адрес- валидный, а test или @some или some@te - будут не валидны
-     * password - должен быть не меньше 5 символов и должен включать в себя цифры и сепц символы (%$@ и т.д.)
-     * confirmPassword - должен совпадать с password
-     * */
-    function useForm() {
+
+function useForm() {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
@@ -62,6 +55,7 @@ function TaskOne() {
     return { firstName, setFirstName, lastName, setLastName, email, setEmail, password, setPassword, confirmPassword, setConfirmPassword, error, onSubmitHandle };
 };
 
+function TaskOne() {
     
     const { firstName, setFirstName, lastName, setLastName, email, setEmail, password, setPassword, confirmPassword, setConfirmPassword, error, onSubmitHandle } = useForm()
 
