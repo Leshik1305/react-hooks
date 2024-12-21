@@ -1,16 +1,19 @@
 import React, {useState, useCallback, useEffect } from 'react';
 import './TaskThree.css';
+import { debounce } from 'lodash'
 
 // функция для получения данных с Mock API
+
+
 
 export default function TaskThree() {
     const [posts, setPosts] = useState([]);
     const [search, setSearch] = useState();
     const [isLoading, setLoading] = useState(true);
 
-    const fetchData = useCallback(async (search, abortController) => {
+    const fetchData = useCallback(async (search) => {
         try {
-            const res = await fetch(`https://jsonplaceholder.typicode.com/posts?search=${search}`, { signal: abortController.signal });
+            const res = await fetch(`https://jsonplaceholder.typicode.com/posts?search=${search}`);
             const data = await res.json();
             setPosts(data);
         } catch (error) {
@@ -23,14 +26,26 @@ export default function TaskThree() {
             setLoading(false);
         }
     }, []);
+    
 
     useEffect(() => {
-        const abortController = new AbortController();
-        setLoading(true);
-        fetchData(search, abortController);
+         const abortController = new AbortController();
+        
+         // Используем debounce, чтобы уменьшить количество запросов
+         const debouncedFetchData = debounce(async(search) => {
+         await fetchData(search, abortController);
+        }, 500); // 500 мс задержки
+        
+        // Вызовем дебаунсированную функцию
+        debouncedFetchData(search);
+        
+        return () => {
+        abortController.abort(); // Отменить предыдущий запрос при изменении search
+        debouncedFetchData.cancel(); // Отменить все отложенные вызовы debounce
+        };
+        }, [search, fetchData]);
 
-        return () => abortController.abort();
-    }, [search, fetchData]);
+    
 
     
     return (
